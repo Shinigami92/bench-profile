@@ -1,0 +1,22 @@
+{
+	"name": "bench-profile-backend",
+	"version": "1.0.0",
+	"description": "",
+	"main": "main.ts",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"author": {
+		"name": "Christopher Quadflieg",
+		"email": "chrissi92@hotmail.de"
+	},
+	"license": "MIT",
+	"dependencies": {
+		"express": "^4.16.3"
+	},
+	"devDependencies": {
+		"prettier": "1.13.5",
+		"ts-node": "~6.1.1",
+		"typescript": "~2.9.2"
+	}
+}
