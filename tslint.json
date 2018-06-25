@@ -29,10 +29,7 @@
 		"no-sparse-arrays": true,
 		"no-switch-case-fall-through": true,
 		"no-unnecessary-callback-wrapper": true,
-		"object-literal-sort-keys": {
-			"options": "match-declaration-order",
-			"severity": "warn"
-		},
+		"object-literal-sort-keys": false,
 		"only-arrow-functions": false,
 		"prefer-template": true,
 		"quotemark": {

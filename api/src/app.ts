@@ -1,21 +1,8 @@
 import * as bodyParser from 'body-parser';
 import * as express from 'express';
 import * as graphqlHTTP from 'express-graphql';
-import { GraphQLObjectType, GraphQLSchema, GraphQLString } from 'graphql';
 
-const schema: GraphQLSchema = new GraphQLSchema({
-	query: new GraphQLObjectType({
-		name: 'RootQueryType',
-		fields: {
-			hello: {
-				type: GraphQLString,
-				resolve(): string {
-					return 'world';
-				}
-			}
-		}
-	})
-});
+import { schema } from './graphql/schema';
 
 class App {
 	public app: express.Application;

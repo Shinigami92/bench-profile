@@ -2,7 +2,7 @@
 	"name": "bench-profile-backend",
 	"version": "1.0.0",
 	"description": "",
-	"main": "main.ts",
+	"main": "server.ts",
 	"scripts": {
 		"dev": "nodemon",
 		"lint": "tslint --project tsconfig.json --force --format stylish",
