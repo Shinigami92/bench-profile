@@ -1,6 +1,7 @@
 import { GraphQLList, GraphQLObjectType } from 'graphql/type/definition';
 import { GraphQLSchema } from 'graphql/type/schema';
 import { Account, AccountType } from './account/account';
+import { Computer } from './computer/computer';
 
 export const schema: GraphQLSchema = new GraphQLSchema({
 	query: new GraphQLObjectType({
@@ -11,6 +12,8 @@ export const schema: GraphQLSchema = new GraphQLSchema({
 				resolve(): Account[] {
 					const acc1: Account = new Account('Username1', 'user1@mail.com');
 					const acc2: Account = new Account('Username2', 'user2@mail.com');
+					const comp1: Computer = new Computer('PC1', acc1);
+					acc1.computers.push(comp1);
 					return [acc1, acc2];
 				}
 			}

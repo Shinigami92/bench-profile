@@ -1,5 +1,6 @@
 import { GraphQLBoolean, GraphQLID, GraphQLString } from 'graphql/index';
-import { GraphQLFieldConfigMap, GraphQLNonNull, GraphQLObjectType } from 'graphql/type/definition';
+import { GraphQLFieldConfigMap, GraphQLList, GraphQLNonNull, GraphQLObjectType } from 'graphql/type/definition';
+import { Computer, ComputerType } from '../computer/computer';
 
 export class Account {
 	public readonly uuid: string;
@@ -14,6 +15,8 @@ export class Account {
 	public facebook?: string;
 	public twitter?: string;
 	public discord?: string;
+
+	public computers: Computer[] = [];
 
 	// private password: string;
 
@@ -42,6 +45,7 @@ export const AccountType: GraphQLObjectType = new GraphQLObjectType({
 		avatar: { type: GraphQLString },
 		facebook: { type: GraphQLString },
 		twitter: { type: GraphQLString },
-		discord: { type: GraphQLString }
+		discord: { type: GraphQLString },
+		computers: { type: new GraphQLNonNull(new GraphQLList(ComputerType)) }
 	})
 });
