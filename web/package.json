@@ -13,6 +13,6 @@
 	"license": "MIT",
 	"dependencies": {
 		"vue": "~2.5.16",
-		"vuetify": "~1.0.19"
+		"vuetify": "~1.1.0"
 	}
 }
