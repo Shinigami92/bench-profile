@@ -13,6 +13,7 @@
 			}
 		],
 		"strictNullChecks": true,
+		"strictPropertyInitialization": true,
 		"target": "es6",
 		"lib": ["es2017", "dom"]
 	},
