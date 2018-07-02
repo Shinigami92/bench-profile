@@ -10,4 +10,6 @@ app.get('/', (_req: Request, res: Response) => {
 
 app.listen(PORT, () => {
 	console.log(`Express server listening on port ${PORT}`);
+	console.info(`http://localhost:${PORT}`);
+	console.info(`http://localhost:${PORT}/graphql`);
 });

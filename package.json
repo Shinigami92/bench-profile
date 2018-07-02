@@ -6,7 +6,11 @@
 	"scripts": {
 		"postinstall": "run-p install:api install:web",
 		"install:api": "cd api && npm install",
-		"install:web": "cd web && npm install"
+		"install:web": "cd web && npm install",
+		"dev:api": "cd api && npm run dev",
+		"dev:web": "cd web && npm run dev",
+		"lint:api": "cd api && npm run lint",
+		"lint:web": "cd web && npm run lint"
 	},
 	"repository": {
 		"type": "git",

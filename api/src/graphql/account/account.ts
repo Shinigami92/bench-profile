@@ -1,9 +1,9 @@
-import { GraphQLBoolean, GraphQLID, GraphQLString } from 'graphql/index';
+import { GraphQLBoolean, GraphQLString } from 'graphql/index';
 import { GraphQLFieldConfigMap, GraphQLList, GraphQLNonNull, GraphQLObjectType } from 'graphql/type/definition';
 import { Computer, ComputerType } from '../computer/computer';
+import { Node, nodeFields, NodeType } from '../node';
 
-export class Account {
-	public readonly uuid: string;
+export class Account extends Node {
 	public username: string;
 	public email: string;
 	public enabled: boolean = true;
@@ -21,10 +21,7 @@ export class Account {
 	// private password: string;
 
 	constructor(username: string, email: string) {
-		this.uuid = Math.random()
-			.toString(16)
-			.substring(2)
-			.toUpperCase();
+		super();
 		this.username = username;
 		this.email = email;
 	}
@@ -33,8 +30,9 @@ export class Account {
 // tslint:disable-next-line:variable-name
 export const AccountType: GraphQLObjectType = new GraphQLObjectType({
 	name: Account.name,
+	interfaces: [NodeType],
 	fields: (): GraphQLFieldConfigMap<any, any> => ({
-		uuid: { type: new GraphQLNonNull(GraphQLID) },
+		...nodeFields,
 		username: { type: new GraphQLNonNull(GraphQLString) },
 		email: { type: new GraphQLNonNull(GraphQLString) },
 		enabled: { type: new GraphQLNonNull(GraphQLBoolean) },

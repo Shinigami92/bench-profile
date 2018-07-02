@@ -1,9 +1,9 @@
-import { GraphQLID, GraphQLString } from 'graphql/index';
+import { GraphQLString } from 'graphql/index';
 import { GraphQLFieldConfigMap, GraphQLNonNull, GraphQLObjectType } from 'graphql/type/definition';
 import { Account, AccountType } from '../account/account';
+import { Node, nodeFields, NodeType } from '../node';
 
-export class Computer {
-	public readonly uuid: string;
+export class Computer extends Node {
 	public name: string;
 
 	public description: string;
@@ -11,10 +11,7 @@ export class Computer {
 	public owner: Account;
 
 	constructor(name: string, owner: Account, description: string = '') {
-		this.uuid = Math.random()
-			.toString(16)
-			.substring(2)
-			.toUpperCase();
+		super();
 		this.name = name;
 		this.owner = owner;
 		this.description = description;
@@ -24,8 +21,9 @@ export class Computer {
 // tslint:disable-next-line:variable-name
 export const ComputerType: GraphQLObjectType = new GraphQLObjectType({
 	name: Computer.name,
+	interfaces: [NodeType],
 	fields: (): GraphQLFieldConfigMap<any, any> => ({
-		uuid: { type: new GraphQLNonNull(GraphQLID) },
+		...nodeFields,
 		name: { type: new GraphQLNonNull(GraphQLString) },
 		owner: { type: new GraphQLNonNull(AccountType) },
 		description: { type: new GraphQLNonNull(GraphQLString) }
