@@ -16,8 +16,7 @@
 		},
 		"interface-name": false,
 		"strict-type-predicates": true,
-		"variable-name": [true, "ban-keywords", "check-format", "allow-leading-underscore"],
-		"max-classes-per-file": [true, 2],
+		"variable-name": [true, "ban-keywords"],
 		"max-line-length": {
 			"options": {
 				"limit": 120,
