@@ -4,7 +4,7 @@ import { Computer, ComputerType } from '../computer/computer';
 import { Connection, connectionFields, ConnectionType } from '../connection';
 import { Edge, edgeFields, EdgeType } from '../edge';
 import { Node, nodeFields, NodeType } from '../node';
-import { PageInfo } from '../page-info';
+import { PageInfo, paginateConnection } from '../page-info';
 
 export class Account extends Node {
 	public username: string;
@@ -30,23 +30,13 @@ export class Account extends Node {
 	}
 
 	public computersConnection({ limit, offset }: { limit: number; offset: number }): AccountComputersConnection {
-		if (limit < 1) {
-			throw new Error('Limit must be greater than or equal to 1');
-		}
-		if (offset < 0) {
-			throw new Error('Offset must be greater than or equal to 0');
-		}
-		const maxElements: number = this.computers.length;
-		const currentPage: number = Math.ceil(offset / limit) + 1;
-		const edges: AccountComputersEdge[] = this.computers
-			.slice(offset, limit + offset)
-			.map((computer: Computer) => new AccountComputersEdge(computer));
-		const hasPreviousPage: boolean = offset > 0;
-		const totalPages: number = Math.ceil(maxElements / limit);
-		const hasNextPage: boolean = maxElements > limit + offset;
-		const pageInfo: PageInfo = new PageInfo(maxElements, currentPage, hasPreviousPage, hasNextPage, totalPages);
-		const connection: AccountComputersConnection = new AccountComputersConnection(pageInfo, edges);
-		return connection;
+		return paginateConnection(
+			this.computers.length,
+			this.computers.slice(offset, limit + offset),
+			{ limit, offset },
+			AccountComputersEdge,
+			AccountComputersConnection
+		);
 	}
 }
 
