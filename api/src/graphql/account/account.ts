@@ -1,4 +1,4 @@
-import { GraphQLBoolean, GraphQLString } from 'graphql/index';
+import { GraphQLBoolean, GraphQLInt, GraphQLString } from 'graphql/index';
 import { GraphQLFieldConfigMap, GraphQLList, GraphQLNonNull, GraphQLObjectType } from 'graphql/type/definition';
 import { Computer, ComputerType } from '../computer/computer';
 import { Connection, connectionFields, ConnectionType } from '../connection';
@@ -29,11 +29,13 @@ export class Account extends Node {
 		this.email = email;
 	}
 
-	get computersConnection(): AccountComputersConnection {
-		const edges: AccountComputersEdge[] = this.computers.map(
-			(computer: Computer) => new AccountComputersEdge(computer)
-		);
-		const pageInfo: PageInfo = new PageInfo(false, edges.length);
+	public computersConnection({ limit, offset }: { limit: number; offset: number }): AccountComputersConnection {
+		const edges: AccountComputersEdge[] = this.computers
+			.slice(offset, limit)
+			.map((computer: Computer) => new AccountComputersEdge(computer));
+		const page: number = limit + offset * limit;
+		const hasNextPage: boolean = page < this.computers.length;
+		const pageInfo: PageInfo = new PageInfo(hasNextPage, edges.length);
 		const connection: AccountComputersConnection = new AccountComputersConnection(pageInfo, edges);
 		return connection;
 	}
@@ -85,7 +87,13 @@ export const AccountType: GraphQLObjectType = new GraphQLObjectType({
 		facebook: { type: GraphQLString },
 		twitter: { type: GraphQLString },
 		discord: { type: GraphQLString },
-		computers: { type: new GraphQLNonNull(new GraphQLList(ComputerType)) },
-		computersConnection: { type: new GraphQLNonNull(AccountComputersConnectionType) }
+		computers: { type: new GraphQLNonNull(new GraphQLList(new GraphQLNonNull(ComputerType))) },
+		computersConnection: {
+			args: {
+				limit: { type: GraphQLInt, defaultValue: 50 },
+				offset: { type: GraphQLInt, defaultValue: 0 }
+			},
+			type: new GraphQLNonNull(AccountComputersConnectionType)
+		}
 	})
 });
