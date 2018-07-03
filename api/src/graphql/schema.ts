@@ -1,4 +1,4 @@
-import { GraphQLList, GraphQLObjectType } from 'graphql/type/definition';
+import { GraphQLList, GraphQLNonNull, GraphQLObjectType } from 'graphql/type/definition';
 import { GraphQLSchema } from 'graphql/type/schema';
 import { ACCOUNTS, HARDWARE } from '../db-mock/database-mock';
 import { Account, AccountComputersConnectionType, AccountComputersEdgeType, AccountType } from './account/account';
@@ -25,13 +25,13 @@ export const schema: GraphQLSchema = new GraphQLSchema({
 		name: 'Query',
 		fields: {
 			accounts: {
-				type: new GraphQLList(AccountType),
+				type: new GraphQLNonNull(new GraphQLList(new GraphQLNonNull(AccountType))),
 				resolve(): Account[] {
 					return ACCOUNTS;
 				}
 			},
 			hardware: {
-				type: new GraphQLList(HardwareType),
+				type: new GraphQLNonNull(new GraphQLList(new GraphQLNonNull(HardwareType))),
 				resolve(): Hardware[] {
 					return HARDWARE;
 				}

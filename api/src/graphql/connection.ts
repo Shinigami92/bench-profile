@@ -22,7 +22,7 @@ export abstract class Connection<T extends Edge<Node>> {
 export function connectionFields(edgeType: GraphQLObjectType): GraphQLFieldConfigMap<any, any> {
 	return {
 		pageInfo: { type: new GraphQLNonNull(PageInfoType) },
-		edges: { type: new GraphQLList(edgeType) }
+		edges: { type: new GraphQLNonNull(new GraphQLList(new GraphQLNonNull(edgeType))) }
 	};
 }
 
@@ -30,6 +30,6 @@ export const ConnectionType: GraphQLInterfaceType = new GraphQLInterfaceType({
 	name: Connection.name,
 	fields: (): GraphQLFieldConfigMap<any, any> => ({
 		pageInfo: { type: new GraphQLNonNull(PageInfoType) },
-		edges: { type: new GraphQLList(EdgeType) }
+		edges: { type: new GraphQLNonNull(new GraphQLList(new GraphQLNonNull(EdgeType))) }
 	})
 });
