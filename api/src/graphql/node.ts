@@ -17,7 +17,6 @@ export const nodeFields: GraphQLFieldConfigMap<any, any> = {
 	uuid: { type: new GraphQLNonNull(GraphQLID) }
 };
 
-// tslint:disable-next-line:variable-name
 export const NodeType: GraphQLInterfaceType = new GraphQLInterfaceType({
 	name: Node.name,
 	fields: (): GraphQLFieldConfigMap<any, any> => nodeFields
