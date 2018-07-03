@@ -23,7 +23,6 @@ export const hardwareFields: GraphQLFieldConfigMap<any, any> = {
 	}
 };
 
-// tslint:disable-next-line:variable-name
 export const HardwareType: GraphQLInterfaceType = new GraphQLInterfaceType({
 	name: Hardware.name,
 	fields: (): GraphQLFieldConfigMap<any, any> => hardwareFields

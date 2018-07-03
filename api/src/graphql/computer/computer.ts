@@ -18,7 +18,6 @@ export class Computer extends Node {
 	}
 }
 
-// tslint:disable-next-line:variable-name
 export const ComputerType: GraphQLObjectType = new GraphQLObjectType({
 	name: Computer.name,
 	interfaces: [NodeType],

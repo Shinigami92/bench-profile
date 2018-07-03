@@ -13,7 +13,6 @@ export class Mainboard extends Hardware {
 	}
 }
 
-// tslint:disable-next-line:variable-name
 export const MainboardType: GraphQLObjectType = new GraphQLObjectType({
 	name: Mainboard.name,
 	interfaces: [NodeType, HardwareType],
