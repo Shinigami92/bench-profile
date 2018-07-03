@@ -13,11 +13,12 @@ for (let i: number = 0; i < 50; i++) {
 	ACCOUNTS.push(acc);
 }
 
-for (let i: number = 0; i < ACCOUNTS.length; i++) {
-	const owner: Account = ACCOUNTS[i];
-	const comp: Computer = new Computer(`PC-${i}`, owner);
-	owner.computers.push(comp);
-	COMPUTERS.push(comp);
+for (const owner of ACCOUNTS) {
+	for (let j: number = 0; j < 8; j++) {
+		const comp: Computer = new Computer(`PC-${j}`, owner);
+		owner.computers.push(comp);
+		COMPUTERS.push(comp);
+	}
 }
 
 const mobo1: Mainboard = new Mainboard('P8Z77-V DELUXE', new Date('2012-03-17'));

@@ -30,12 +30,21 @@ export class Account extends Node {
 	}
 
 	public computersConnection({ limit, offset }: { limit: number; offset: number }): AccountComputersConnection {
+		if (limit < 1) {
+			throw new Error('Limit must be greater than or equal to 1');
+		}
+		if (offset < 0) {
+			throw new Error('Offset must be greater than or equal to 0');
+		}
+		const maxElements: number = this.computers.length;
+		const currentPage: number = Math.ceil(offset / limit) + 1;
 		const edges: AccountComputersEdge[] = this.computers
-			.slice(offset, limit)
+			.slice(offset, limit + offset)
 			.map((computer: Computer) => new AccountComputersEdge(computer));
-		const page: number = limit + offset * limit;
-		const hasNextPage: boolean = page < this.computers.length;
-		const pageInfo: PageInfo = new PageInfo(hasNextPage, edges.length);
+		const hasPreviousPage: boolean = offset > 0;
+		const totalPages: number = Math.ceil(maxElements / limit);
+		const hasNextPage: boolean = maxElements > limit + offset;
+		const pageInfo: PageInfo = new PageInfo(maxElements, currentPage, hasPreviousPage, hasNextPage, totalPages);
 		const connection: AccountComputersConnection = new AccountComputersConnection(pageInfo, edges);
 		return connection;
 	}
