@@ -30,7 +30,7 @@ export const schema: GraphQLSchema = new GraphQLSchema({
 					return ACCOUNTS;
 				}
 			},
-			hardware: {
+			hardwares: {
 				type: new GraphQLNonNull(new GraphQLList(new GraphQLNonNull(HardwareType))),
 				resolve(): Hardware[] {
 					return HARDWARE;
